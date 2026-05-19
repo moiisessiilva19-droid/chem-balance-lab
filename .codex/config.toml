@@ -1,0 +1,3 @@
+# .codex/config.toml
+[project]
+name = "chem-balance-lab-codex"
