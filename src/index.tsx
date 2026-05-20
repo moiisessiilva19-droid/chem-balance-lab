@@ -171,7 +171,7 @@ const perturbations: Perturbation[] = [
   "No aplica","Aumenta concentración de reactivo","Disminuye concentración de reactivo","Aumenta concentración de producto","Disminuye concentración de producto","Aumenta presión","Disminuye presión","Aumenta volumen","Disminuye volumen","Aumenta temperatura","Disminuye temperatura","Agrega catalizador","Gas inerte (volumen constante)"
 ];
 
-const creators = ["Moisés Silva","Felipe Barriga","Pablo Herrera","Hugo Morales","Álvaro Correa","Fabián Rojas"];
+const creators = ["Moisés Silva","Pablo Herrera","Hugo Morales","Álvaro Correa","Fabián Rojas"];
 
 const emptyRows: SpeciesRow[] = [
   { id: "r1", sideCode: "R", order: 1, name: "", state: "", coeff: null, initial: null, eqKnown: null, includeMode: "Auto" },
@@ -377,6 +377,10 @@ function validateRows(rows: SpeciesRow[], workMode: WorkMode, constantType: Cons
   for (const row of named) {
     if (!row.state) messages.push(`${row.name}: falta estado físico (g, aq, l o s).`);
     if (positiveCoeff(row) === null) messages.push(`${row.name}: coeficiente inválido.`);
+    if (row.initial !== null && row.initial !== "" && numericValue(row.initial) === null) messages.push(`${row.name}: valor inicial inválido.`);
+    if (row.eqKnown !== null && row.eqKnown !== "" && numericValue(row.eqKnown) === null) messages.push(`${row.name}: equilibrio conocido inválido.`);
+    if (numericValue(row.initial) !== null && (numericValue(row.initial) ?? 0) < 0) messages.push(`${row.name}: el valor inicial no puede ser negativo.`);
+    if (numericValue(row.eqKnown) !== null && (numericValue(row.eqKnown) ?? 0) < 0) messages.push(`${row.name}: el equilibrio conocido no puede ser negativo.`);
   }
   const included = named.filter((r) => includeInK(r, constantType));
   if (!included.length) messages.push(`${constantType}: no hay especies incluidas en la expresión.`);
@@ -604,12 +608,18 @@ function App() {
     const kFromKnown = calcKFromKnownEq(rows, constantType);
     const effectiveK = workMode === "Calcular K desde equilibrio conocido" ? kFromKnown : Kinput;
     const validationMessages = validateRows(rows, workMode, constantType, Kinput);
-    const qForComparison = workMode === "Calcular K desde equilibrio conocido" ? null : qInitial;
+    if (temperature !== "" && numericValue(temperature) === null) validationMessages.push("Temperatura inválida.");
+    if (numericValue(temperature) !== null && (numericValue(temperature) ?? 0) <= 0) validationMessages.push("Temperatura debe ser mayor que cero.");
+    if (pressure !== "" && numericValue(pressure) === null) validationMessages.push("Presión inválida.");
+    if (numericValue(pressure) !== null && (numericValue(pressure) ?? 0) <= 0) validationMessages.push("Presión debe ser mayor que cero.");
+    if (tolerance !== "" && numericValue(tolerance) === null) validationMessages.push("Tolerancia inválida.");
+    if (numericValue(tolerance) !== null && (numericValue(tolerance) ?? 0) <= 0) validationMessages.push("Tolerancia debe ser mayor que cero.");
+    const qForComparison = workMode === "Calcular Q y predecir sentido" || workMode === "Resolver equilibrio con K" ? qInitial : null;
     const qvsK = qVsKText(qForComparison, effectiveK, tol);
     const direction = directionText(qForComparison, effectiveK, tol);
     const solver = validationMessages.length
       ? { xi: null, Kcalc: null, error: null, lowerBound: null, upperBound: null, direction: "", status: validationMessages[0] }
-      : workMode === "Calcular K desde equilibrio conocido"
+      : workMode === "Calcular K desde equilibrio conocido" || workMode === "Hallar una especie en equilibrio"
       ? { xi: null, Kcalc: null, error: null, lowerBound: null, upperBound: null, direction: "", status: "No aplica" }
       : solveXi(rows, effectiveK, tol, constantType, P);
 
@@ -699,12 +709,12 @@ function App() {
     const conversionAllowed = canConvertKcKp(rows);
     const kcEq = conversionAllowed ? convertConstant(effectiveK, constantType, "Kc", T, deltaN) : null;
     const kpEq = conversionAllowed ? convertConstant(effectiveK, constantType, "Kp", T, deltaN) : null;
-    const substitutionText = workMode === "Calcular K desde equilibrio conocido" ? buildSubstitution(rows, "eqKnown", constantType) : buildSubstitution(rows, "initial", constantType);
-    const card4Label = workMode === "Calcular Q y predecir sentido" ? "Sentido previsto" : workMode === "Calcular K desde equilibrio conocido" ? "No aplica" : "Dirección";
-    const card5Label = workMode === "Calcular Q y predecir sentido" || workMode === "Calcular K desde equilibrio conocido" ? "No aplica" : "ξ solución";
+    const substitutionText = workMode === "Calcular K desde equilibrio conocido" || workMode === "Hallar una especie en equilibrio" ? buildSubstitution(rows, "eqKnown", constantType) : buildSubstitution(rows, "initial", constantType);
+    const card4Label = workMode === "Calcular Q y predecir sentido" ? "Sentido previsto" : workMode === "Resolver equilibrio con K" ? "Dirección" : "No aplica";
+    const card5Label = workMode === "Resolver equilibrio con K" ? "ξ solución" : "No aplica";
     const unknownResolved = rowsComputed.find((r) => r.unknownFlag === 1)?.resolvedUnknown ?? null;
     const card6Label = workMode === "Calcular Q y predecir sentido" ? "Q calculado" : workMode === "Hallar una especie en equilibrio" ? "Especie hallada" : "K calculada";
-    const card5Value = workMode === "Calcular Q y predecir sentido" || workMode === "Calcular K desde equilibrio conocido" ? "No aplica" : sfmt(solver.xi);
+    const card5Value = workMode === "Resolver equilibrio con K" ? sfmt(solver.xi) : "No aplica";
     const card6Value = workMode === "Hallar una especie en equilibrio" ? sfmt(unknownResolved) : sfmt(aggregateValue);
 
     return { temperature: T, pressure: P, toleranceValue: tol, deltaN, factor, qInitial, kFromKnown, effectiveK, qvsK, direction, solver, aggregateValue, relativeError, stateMotor, reactionText: buildReactionText(rows), exprText: buildKExpression(rows, constantType), rows: rowsComputed, kcEq, kpEq, conversionAllowed, validationMessages, substitutionText, card4Label, card5Label, card5Value, card6Label, card6Value };
@@ -728,7 +738,7 @@ function App() {
   const prodPct = Math.min(80, Math.max(14, (prodTotal / total) * 100));
   const eqPct = Math.min(80, Math.max(14, ((reactTotal + prodTotal) / 2 / total) * 100));
   const balanceRotation = computed.direction === "Hacia productos" ? "-6deg" : computed.direction === "Hacia reactivos" ? "6deg" : "0deg";
-  const qInitialText = workMode === "Calcular K desde equilibrio conocido" ? "No aplica" : sfmt(computed.qInitial);
+  const qInitialText = workMode === "Calcular K desde equilibrio conocido" || workMode === "Hallar una especie en equilibrio" ? "No aplica" : sfmt(computed.qInitial);
   const relativeErrorText = computed.relativeError === null ? "No aplica" : sfmt(computed.relativeError, 8);
   const participatingText = computed.rows.filter((r) => r.includeInK && r.name.trim()).map(rowLabel).join(", ") || "No aplica";
   const excludedText = computed.rows.filter((r) => !r.includeInK && r.name.trim()).map((r) => `${rowLabel(r)} (${r.status})`).join(", ") || "No aplica";
@@ -892,12 +902,12 @@ function App() {
                 <h3>Resumen de resultados</h3>
                 <div className="summary-grid">
                   <SummaryCard icon="K" label="K objetivo" value={sfmt(computed.effectiveK)} subtitle="K efectiva usada por el motor" />
-                  <SummaryCard icon="Q" label="Q inicial" value={workMode === "Calcular K desde equilibrio conocido" ? "No aplica" : sfmt(computed.qInitial)} subtitle={workMode === "Calcular K desde equilibrio conocido" ? "No aplica en este modo" : "Cociente de reacción inicial"} />
-                  <SummaryCard icon="Q/K" label="Comparación" value={computed.qvsK || "No aplica"} subtitle={workMode === "Calcular K desde equilibrio conocido" ? "No se compara Q en este modo" : "Relación entre Q y K"} />
-                  <SummaryCard icon="↗" label={computed.card4Label} value={computed.direction || "No aplica"} subtitle={workMode === "Calcular K desde equilibrio conocido" ? "En este modo la app calcula K desde equilibrio conocido." : directionSummary(computed.direction, computed.qInitial, computed.effectiveK)} />
+                  <SummaryCard icon="Q" label="Q inicial" value={workMode === "Calcular K desde equilibrio conocido" || workMode === "Hallar una especie en equilibrio" ? "No aplica" : sfmt(computed.qInitial)} subtitle={workMode === "Calcular K desde equilibrio conocido" || workMode === "Hallar una especie en equilibrio" ? "No aplica en este modo" : "Cociente de reacción inicial"} />
+                  <SummaryCard icon="Q/K" label="Comparación" value={computed.qvsK || "No aplica"} subtitle={workMode === "Calcular Q y predecir sentido" || workMode === "Resolver equilibrio con K" ? "Relación entre Q y K" : "No se compara Q en este modo"} />
+                  <SummaryCard icon="↗" label={computed.card4Label} value={computed.direction || "No aplica"} subtitle={workMode === "Calcular Q y predecir sentido" || workMode === "Resolver equilibrio con K" ? directionSummary(computed.direction, computed.qInitial, computed.effectiveK) : "No aplica en este modo."} />
                 </div>
                 <div className="summary-grid">
-                  <SummaryCard icon="ξ" label={computed.card5Label} value={computed.card5Value} subtitle={workMode === "Calcular Q y predecir sentido" ? "Este modo no necesita resolver ξ." : "Resultado interno del motor"} />
+                  <SummaryCard icon="ξ" label={computed.card5Label} value={computed.card5Value} subtitle={workMode === "Resolver equilibrio con K" ? "Resultado interno del motor" : "No aplica en este modo."} />
                   <SummaryCard icon="Σ" label={computed.card6Label} value={computed.card6Value} subtitle={workMode === "Calcular Q y predecir sentido" ? "En este modo se reporta Q y no una K iterada." : "Valor agregado calculado por el motor"} />
                   <SummaryCard icon="ε" label="Error relativo" value={computed.relativeError === null ? "No aplica" : sfmt(computed.relativeError, 8)} subtitle={workMode === "Calcular Q y predecir sentido" ? "No es el foco principal de este modo." : "Comparación con la K objetivo"} />
                   <SummaryCard icon="OK" label="Estado del motor" value={computed.stateMotor} subtitle="Diagnóstico general" />
@@ -954,7 +964,7 @@ function App() {
                   <DevCard label="Especies incluidas" value={participatingText} />
                   <DevCard label="Especies excluidas" value={excludedText} />
                   <DevCard label="Sustitucion numerica" value={computed.substitutionText} wide />
-                  <DevCard label="Calculo principal" value={workMode === "Calcular K desde equilibrio conocido" ? `K = ${sfmt(computed.kFromKnown)}` : `Q = ${qInitialText}`} />
+                  <DevCard label="Calculo principal" value={workMode === "Calcular K desde equilibrio conocido" ? `K = ${sfmt(computed.kFromKnown)}` : workMode === "Hallar una especie en equilibrio" ? `${computed.card6Label} = ${computed.card6Value}` : `Q = ${qInitialText}`} />
                   <DevCard label="Comparacion Q vs K" value={computed.qvsK || "No aplica"} />
                   <DevCard label="Direccion del equilibrio" value={computed.direction || "No aplica"} />
                   <DevCard label="Xi y limites" value={`xi = ${sfmt(computed.solver.xi)} | limite inferior = ${sfmt(computed.solver.lowerBound)} | limite superior = ${sfmt(computed.solver.upperBound)}`} />

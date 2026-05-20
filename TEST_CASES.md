@@ -54,3 +54,23 @@
 | S6 | Mode Calcular Q y predecir sentido | xi and error relative show No aplica |
 | S7 | Le Chatelier pressure for CaCO3 | separate conclusion: pressure increase favors reactants |
 | S8 | Le Chatelier pressure for 2NO2 | separate conclusion: pressure increase favors products |
+
+## Final hardening cases
+
+| ID | Area | Input / Scenario | Expected |
+| --- | --- | --- | --- |
+| H1 | Q = 0 | N2(g)+3H2(g)<=>2NH3(g), NH3 initial = 0 | Q = 0, Q < K, hacia productos |
+| H2 | Q = K | H2(g)+I2(g)<=>2HI(g), H2=1, I2=1, HI=sqrt(20), K=20 | Q = K, en equilibrio |
+| H3 | Q > K | H2(g)+I2(g)<=>2HI(g), H2=0.2, I2=0.2, HI=5, K=20 | Q = 625, hacia reactivos |
+| H4 | Q < K | 2NO2(g)<=>N2O4(g), NO2=0.8, N2O4=0.6, K=5 | Q = 0.9375, hacia productos |
+| H5 | Delta n positive | CaCO3(s)<=>CaO(s)+CO2(g), delta n = +1 | pressure increase favors reactants; volume increase favors products |
+| H6 | Delta n negative | N2(g)+3H2(g)<=>2NH3(g), delta n = -2 | pressure increase favors products; volume increase favors reactants |
+| H7 | Delta n zero | H2(g)+I2(g)<=>2HI(g), delta n = 0 | pressure/volume change gives no appreciable shift |
+| H8 | Endothermic temperature | thermal = Endotermica, Aumenta temperatura | favors products |
+| H9 | Exothermic temperature | thermal = Exotermica, Aumenta temperatura | favors reactants |
+| H10 | Solids/liquids | CaCO3(s) and H2O(l) in Auto | s and l excluded from K/Q |
+| H11 | Fine decimals | 0.8, 0.6, 0.25, 1.75 | values preserved and calculated |
+| H12 | Incomplete input | included species missing initial in Q mode | controlled validation message |
+| H13 | Invalid numeric input | initial = abc | controlled validation message |
+| H14 | Negative concentration | initial or Eq. conocido < 0 | controlled validation message; no silent calculation |
+| H15 | Hallar una especie mode | H2(g)+I2(g)<=>2HI(g), K=20, Eq H2=1, Eq I2=1, HI blank | HI = sqrt(20), Q/K and xi show No aplica |

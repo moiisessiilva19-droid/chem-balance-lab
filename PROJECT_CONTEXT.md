@@ -20,7 +20,6 @@ The app already includes:
 
 ## Creators
 - Moisés Silva
-- Felipe Barriga
 - Pablo Herrera
 - Hugo Morales
 - Álvaro Correa
