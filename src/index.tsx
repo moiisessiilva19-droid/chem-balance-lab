@@ -138,6 +138,8 @@ input:focus,select:focus{border-color:#6ad9e8;box-shadow:0 0 0 3px rgba(16,191,2
 .species-block{margin-top:18px}.species-block h4{padding-left:10px;border-left:4px solid var(--teal)}.species-list{display:grid;gap:10px}.species-row{display:grid;grid-template-columns:2fr .85fr .75fr 1fr 1fr .9fr;gap:10px;border:1px solid #dbe8f1;border-radius:14px;padding:12px;background:#fcfeff;box-shadow:0 1px 0 rgba(255,255,255,.8)}
 .species-row:hover{border-color:#aee5ef;background:#f8fdff}.field.secondary{opacity:.60}.field.secondary input{background:#f1f5f9;color:#6f7f92}.field .field-note{font-size:12px;color:#7b8da3;margin-top:-3px;line-height:1.25;text-transform:none;font-weight:600;letter-spacing:0}
 .sidepanels{display:flex;flex-direction:column;gap:14px}.side-title{font-weight:900;color:var(--violet);margin-bottom:12px;font-size:18px}.guide-list{display:grid;gap:10px}.guide-item{color:#37475f;line-height:1.5;padding:10px 11px;border:1px solid #e1edf5;border-radius:12px;background:#fbfdff}.help-inline{margin-top:10px;padding:13px;border-radius:14px;background:#f5f2ff;border:1px solid #ded8ff;color:#5547a9;font-weight:800;line-height:1.45}
+.quick-guide{display:grid;gap:14px}.guide-hero{border:1px solid #b7e9ef;background:linear-gradient(135deg,#ecfbff,#f7f3ff);border-radius:18px;padding:18px}.guide-hero h3{margin:0 0 8px}.guide-hero p{margin:0;color:#40556f;line-height:1.55}
+.guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.guide-card{border:1px solid #d7e7f1;border-radius:16px;background:linear-gradient(180deg,#fff,#f8fcff);padding:15px;box-shadow:var(--shadow-soft)}.guide-card.wide{grid-column:1/-1}.guide-card h4{margin:0 0 9px;color:#10233a}.guide-card p{margin:7px 0;color:#40556f;line-height:1.5}.guide-card ul,.guide-card ol{margin:8px 0 0 20px;padding:0;color:#354962;line-height:1.55}.guide-card li{margin:4px 0}.guide-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;background:#eefcff;border:1px solid #c5edf4;color:#087f97;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}.guide-example{margin-top:10px;padding:10px 12px;border-radius:12px;background:#f2f6ff;border:1px solid #dfe7ff;font-weight:900;color:#15253c;line-height:1.5}
 .table-wrap{overflow:auto;border:1px solid #cfdeec;border-radius:14px;background:white} table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px} th,td{padding:10px 12px;border-top:1px solid #e8f0f7;text-align:left;vertical-align:top} thead th{position:sticky;top:0;z-index:1;border-top:0;background:linear-gradient(180deg,#edf8ff,#e6f0fb);color:#40566f;font-weight:900;white-space:nowrap} tbody tr:nth-child(even){background:#fbfdff} tbody tr:hover{background:#f0fbff}
 .step-box{margin-top:12px;border:1px solid #d8e6f1;border-radius:14px;padding:13px;background:#fbfdff}.step-box pre{margin:0;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.65;color:#334155}
 .dev-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.dev-card{border:1px solid #d5e5ef;border-radius:15px;padding:14px;background:linear-gradient(180deg,#fff 0%,#f7fbff 100%);box-shadow:var(--shadow-soft)}.dev-label{font-size:12px;color:#657891;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.dev-value{margin-top:8px;font-weight:900;line-height:1.5;color:#14233b}.dev-wide{grid-column:1/-1}
@@ -156,7 +158,7 @@ input:focus,select:focus{border-color:#6ad9e8;box-shadow:0 0 0 3px rgba(16,191,2
 .exercise-list{display:grid;gap:12px}.exercise-card{border-radius:18px;padding:16px;background:linear-gradient(180deg,#fff 0%,#fbfdff 100%);box-shadow:var(--shadow-soft)}.exercise-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.exercise-head h4{margin:0 0 6px;font-size:18px}.exercise-head p{margin:0;color:var(--muted);line-height:1.45}.exercise-reaction{margin-top:12px;padding:10px 12px;border-radius:12px;background:#f2f6ff;border:1px solid #dfe7ff;font-weight:900}.exercise-expected{margin-top:12px;color:#31445d}.exercise-expected ul{margin:8px 0 0 18px}
 .creators-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}.creator-card{border:1px solid #d7e7f1;border-radius:18px;padding:18px;text-align:center;background:linear-gradient(180deg,#fff 0%,#f7fbff 100%);box-shadow:var(--shadow-soft)}.creator-icon{font-size:32px;margin-bottom:8px}.creator-name{font-weight:800}
 .footer-note{text-align:center;color:var(--muted);padding:12px 0 4px;font-size:13px}
-@media (max-width:1280px){.layout{grid-template-columns:220px 1fr}.main-grid,.dual-grid,.dev-grid,.module-grid{grid-template-columns:1fr}.summary-grid,.select-grid,.mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sidepanels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:1280px){.layout{grid-template-columns:220px 1fr}.main-grid,.dual-grid,.dev-grid,.module-grid,.guide-grid{grid-template-columns:1fr}.summary-grid,.select-grid,.mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sidepanels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:900px){.app-shell{padding:8px}.layout,.creators-grid{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.reaction-row,.select-grid,.mini-grid,.summary-grid,.species-row{grid-template-columns:1fr}.highlight-row,.topbar,.exercise-head,.section-header-inline{flex-direction:column;align-items:flex-start}.sidepanels{grid-template-columns:1fr}.brand-title{font-size:32px}}
 `;
 
@@ -587,7 +589,7 @@ function App() {
   const [thermal, setThermal] = useState<Thermal>("No especificada");
   const [perturbation, setPerturbation] = useState<Perturbation>("No aplica");
   const [displayMode, setDisplayMode] = useState<DisplayMode>("Estudiante");
-  const [activeTab, setActiveTab] = useState<"calculadora"|"resultado"|"desarrollo"|"lechatelier"|"ejercicios"|"qa"|"creditos">("calculadora");
+  const [activeTab, setActiveTab] = useState<"calculadora"|"guia"|"resultado"|"desarrollo"|"lechatelier"|"ejercicios"|"qa"|"creditos">("calculadora");
   const [calculatorView, setCalculatorView] = useState<CalculatorView>("datos");
   const [message, setMessage] = useState("Versión química mejorada. Motor basado en tu Excel y lista para pruebas.");
 
@@ -773,6 +775,7 @@ function App() {
         <aside className="sidebar">
           <div className="side-top">☰</div>
           <button className={`nav ${activeTab === "calculadora" ? "active" : ""}`} onClick={() => setActiveTab("calculadora")}>🧪 Calculadora</button>
+          <button className={`nav ${activeTab === "guia" ? "active" : ""}`} onClick={() => setActiveTab("guia")}>🧭 Guía rápida</button>
           <button className={`nav ${activeTab === "resultado" ? "active" : ""}`} onClick={() => setActiveTab("resultado")}>📊 Resultado</button>
           <button className={`nav ${activeTab === "desarrollo" ? "active" : ""}`} onClick={() => setActiveTab("desarrollo")}>🧮 Desarrollo</button>
           <button className={`nav ${activeTab === "lechatelier" ? "active" : ""}`} onClick={() => setActiveTab("lechatelier")}>⚖️ Le Chatelier</button>
@@ -893,6 +896,163 @@ function App() {
                   <div className="help-inline">{computed.stateMotor}</div>
                 </div>
               </aside>
+            </section>
+          )}
+
+          {activeTab === "guia" && (
+            <section className="panel quick-guide">
+              <div className="guide-hero">
+                <div className="guide-badge">Guía rápida de uso</div>
+                <h3>Cómo usar ChemBalance Lab</h3>
+                <p>Usa esta guía como ruta de trabajo: escribe la reacción, sincroniza, elige el modo, completa los datos correctos y revisa Resultado y Desarrollo.</p>
+              </div>
+              <div className="guide-grid">
+                <div className="guide-card">
+                  <div className="guide-badge">1. Reacción</div>
+                  <h4>Escribe la reacción</h4>
+                  <p>En el campo principal, escribe la ecuación química y luego presiona <strong>Sincronizar</strong>.</p>
+                  <div className="guide-example">H2(g) + I2(g) &lt;=&gt; 2 HI(g)<br />N2(g) + 3 H2(g) &lt;=&gt; 2 NH3(g)</div>
+                  <p>La app separa reactivos y productos, reconoce coeficientes, identifica estados (g), (aq), (s), (l) y llena la tabla de especies.</p>
+                </div>
+
+                <div className="guide-card">
+                  <div className="guide-badge">2. Modo</div>
+                  <h4>Elige el modo de cálculo</h4>
+                  <ul>
+                    <li><strong>Calcular Q y predecir sentido:</strong> usa concentraciones o presiones iniciales para saber si va hacia reactivos, productos o si ya está en equilibrio.</li>
+                    <li><strong>Calcular K desde equilibrio conocido:</strong> usa concentraciones de equilibrio para obtener K.</li>
+                    <li><strong>Hallar una especie en equilibrio:</strong> usa K y algunas especies en equilibrio, dejando una como incógnita.</li>
+                    <li><strong>Resolver equilibrio con K:</strong> usa condiciones iniciales y K para calcular el equilibrio con ξ.</li>
+                  </ul>
+                </div>
+
+                <div className="guide-card">
+                  <div className="guide-badge">3-5. Datos</div>
+                  <h4>Constante, K y condiciones</h4>
+                  <ul>
+                    <li><strong>Kc:</strong> concentraciones.</li>
+                    <li><strong>Kp:</strong> presiones parciales gaseosas.</li>
+                    <li>En la mayoría de ejercicios escolares/universitarios básicos se usa Kc.</li>
+                    <li>Si el modo usa constante, completa <strong>K ingresada</strong>. Ejemplos: 20, 4, 3.2.</li>
+                    <li>K siempre debe ser mayor que 0.</li>
+                    <li>Normalmente puedes dejar Temperatura 298.15 K, Presión 1 atm y la tolerancia que ya trae la app.</li>
+                  </ul>
+                </div>
+
+                <div className="guide-card">
+                  <div className="guide-badge">6. Especies</div>
+                  <h4>Completa la tabla de especies</h4>
+                  <p>Cada fila representa una especie. Verás columnas como Especie, Estado, Coef., Inicial, Eq. conocido y En K.</p>
+                  <ul>
+                    <li><strong>Inicial:</strong> concentración o presión inicial si el ejercicio da valores al comienzo.</li>
+                    <li><strong>Eq. conocido:</strong> valor en equilibrio cuando el ejercicio dice “en el equilibrio...”.</li>
+                    <li><strong>En K:</strong> define si esa especie entra o no en la expresión de equilibrio.</li>
+                    <li>La app normalmente incluye (g) y (aq), y excluye (s) y (l).</li>
+                  </ul>
+                </div>
+
+                <div className="guide-card wide">
+                  <div className="guide-badge">7. Resultado</div>
+                  <h4>Interpreta el resultado</h4>
+                  <p>Cuando ingresas bien los datos, la app muestra K objetivo, Q inicial, comparación Q/K, dirección, ξ solución si corresponde, K calculada, error relativo y estado del motor.</p>
+                  <ul>
+                    <li><strong>Q &lt; K:</strong> va hacia productos.</li>
+                    <li><strong>Q &gt; K:</strong> va hacia reactivos.</li>
+                    <li><strong>Q = K:</strong> ya está en equilibrio.</li>
+                  </ul>
+                </div>
+
+                <div className="guide-card">
+                  <div className="guide-badge">A</div>
+                  <h4>Si el ejercicio pide comparar Q con K</h4>
+                  <ol>
+                    <li>Escribe la reacción.</li>
+                    <li>Sincroniza.</li>
+                    <li>Elige Calcular Q y predecir sentido.</li>
+                    <li>Ingresa K.</li>
+                    <li>Completa Inicial.</li>
+                    <li>Revisa Q inicial, Q &lt; K / Q &gt; K / Q = K y dirección del equilibrio.</li>
+                  </ol>
+                </div>
+
+                <div className="guide-card">
+                  <div className="guide-badge">B</div>
+                  <h4>Si el ejercicio pide calcular K</h4>
+                  <ol>
+                    <li>Escribe la reacción.</li>
+                    <li>Sincroniza.</li>
+                    <li>Elige Calcular K desde equilibrio conocido.</li>
+                    <li>Completa Eq. conocido.</li>
+                    <li>Revisa K calculada.</li>
+                  </ol>
+                </div>
+
+                <div className="guide-card">
+                  <div className="guide-badge">C</div>
+                  <h4>Si el ejercicio pide encontrar una especie</h4>
+                  <ol>
+                    <li>Escribe la reacción.</li>
+                    <li>Sincroniza.</li>
+                    <li>Elige Hallar una especie en equilibrio.</li>
+                    <li>Ingresa K.</li>
+                    <li>En Eq. conocido llena las especies conocidas.</li>
+                    <li>Deja una especie sin valor para que sea la incógnita.</li>
+                    <li>Revisa el resultado.</li>
+                  </ol>
+                  <p><strong>Ojo:</strong> en este modo normalmente Q inicial no aplica y ξ no aplica.</p>
+                </div>
+
+                <div className="guide-card">
+                  <div className="guide-badge">D</div>
+                  <h4>Si el ejercicio pide resolver equilibrio completo con K</h4>
+                  <ol>
+                    <li>Escribe la reacción.</li>
+                    <li>Sincroniza.</li>
+                    <li>Elige Resolver equilibrio con K.</li>
+                    <li>Ingresa K.</li>
+                    <li>Completa Inicial.</li>
+                    <li>Revisa ξ solución, K calculada y composición de equilibrio.</li>
+                  </ol>
+                </div>
+
+                <div className="guide-card">
+                  <div className="guide-badge">Le Chatelier</div>
+                  <h4>Cómo usar Le Chatelier</h4>
+                  <p>Ve a la sección Le Chatelier cuando quieras analizar perturbaciones: presión, temperatura y concentración.</p>
+                  <ul>
+                    <li>Si aumentas presión, favorece el lado con menos moles gaseosos.</li>
+                    <li>Si disminuyes presión, favorece el lado con más moles gaseosos.</li>
+                    <li>Si la reacción es exotérmica, aumentar temperatura favorece reactivos.</li>
+                    <li>Si la reacción es endotérmica, aumentar temperatura favorece productos.</li>
+                  </ul>
+                </div>
+
+                <div className="guide-card">
+                  <div className="guide-badge">Errores comunes</div>
+                  <h4>Evita estos problemas</h4>
+                  <ul>
+                    <li>No sincronizar después de escribir la reacción.</li>
+                    <li>Poner valores en la columna equivocada: Inicial es al comienzo; Eq. conocido es en equilibrio.</li>
+                    <li>Meter sólidos o líquidos en K manualmente. La app normalmente los excluye sola.</li>
+                    <li>Escribir valores inválidos como abc, números negativos si no corresponden o K = 0.</li>
+                  </ul>
+                </div>
+
+                <div className="guide-card wide">
+                  <div className="guide-badge">Ejemplo corto</div>
+                  <h4>Hallar HI con Kc = 20</h4>
+                  <p>Ejercicio: H2(g) + I2(g) &lt;=&gt; 2 HI(g). Te dan Kc = 20, H2 = 1, I2 = 1 y falta HI.</p>
+                  <ol>
+                    <li>Escribes la reacción y sincronizas.</li>
+                    <li>Eliges Hallar una especie en equilibrio.</li>
+                    <li>K = 20.</li>
+                    <li>En Eq. conocido: H2 = 1 e I2 = 1.</li>
+                    <li>Dejas HI vacío.</li>
+                    <li>Lees el resultado.</li>
+                  </ol>
+                  <div className="guide-example">Orden final recomendado: reacción → sincronizar → modo → Kc/Kp → K si corresponde → Inicial o Eq. conocido → Resultado y Desarrollo.</div>
+                </div>
+              </div>
             </section>
           )}
 
